@@ -1,12 +1,16 @@
 package top.chopper.controller;
 
+import cn.hutool.core.date.LocalDateTimeUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import top.chopper.entities.Pay;
 import top.chopper.entities.Result;
 import top.chopper.service.PayService;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 /*
    @Author:ROBOT
    @DateTime:2025/1/9 16:37
@@ -46,8 +50,23 @@ public class PayController {
 
     @GetMapping("/all")
     public Result getAll(){
-        List<Pay> all = payService.getAll();
-        Result<List<Pay>> success = Result.SUCCESS(all);
-        return success;
+        try {
+            System.out.println("服务调用开始，开始时间:"+ LocalDateTimeUtil.now());
+            TimeUnit.SECONDS.sleep(1);
+            List<Pay> all = payService.getAll();
+            System.out.println("服务调用完成，完成时间:"+ LocalDateTimeUtil.now());
+
+            Result<List<Pay>> success = Result.SUCCESS(all);
+            return success;
+        } catch ( InterruptedException e ) {
+            System.out.println("服务调用完成，完成时间:"+ LocalDateTimeUtil.now());
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @GetMapping("/getInfo")
+    public String getInfoByConsul(@Value("${test.info}")String info){
+        return "获取到的远程配置信息为:\n"+info + "port:8001";
     }
 }

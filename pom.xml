@@ -10,8 +10,15 @@
     <packaging>pom</packaging>
     <modules>
         <module>cloud-provider-payment8001</module>
+        <module>cloud-provider-payment8002</module>
+        <module>cloud-provider-payment8003</module>
         <module>cloud-consumer-order80</module>
         <module>cloud-api-commons</module>
+        <module>cloud-consumer-order80-open-feign</module>
+        <module>cloud-gateway-9527</module>
+        <module>cloud-gateway-alibaba-9627</module>
+        <module>cloud-alibaba-payment9001</module>
+        <module>spring-cloud-alibaba-combine-sentinel8401</module>
     </modules>
 
     <properties>
@@ -31,10 +38,23 @@
         <spring.cloud.version>2023.0.0</spring.cloud.version>
         <spring.cloud.alibaba.version>2023.0.3.2</spring.cloud.alibaba.version>
         <spring.mybatis-plus.version>3.5.10.1</spring.mybatis-plus.version>
+        <!--链路监控相关依赖版本号管理-->
+        <micrometer-tracing.version>1.5.2</micrometer-tracing.version>
+        <micrometer-observation.version>1.15.2</micrometer-observation.version>
+        <feign-micrometer.version>13.6</feign-micrometer.version>
+        <zipkin-reporter-brave.version>3.5.1</zipkin-reporter-brave.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+<!--            spring cloud alibaba pom文件-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2023.0.1.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <!--            mybatis-plus-->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -120,6 +140,42 @@
                 <artifactId>spring-boot-starter-test</artifactId>
                 <version>${spring.boot.test.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <!--链路监控相关依赖-->
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-tracing-bom</artifactId>
+                <version>${micrometer-tracing.version}</version>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>io.zipkin.reporter2</groupId>
+                <artifactId>zipkin-reporter-brave</artifactId>
+                <version>${zipkin-reporter-brave.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-micrometer -->
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-micrometer</artifactId>
+                <version>${feign-micrometer.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/io.micrometer/micrometer-observation -->
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-observation</artifactId>
+                <version>${micrometer-observation.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/io.micrometer/micrometer-tracing-bridge-brave 与zipkin连接的包 -->
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-tracing-bridge-brave</artifactId>
+                <version>${micrometer-tracing.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-tracing</artifactId>
+                <version>${micrometer-tracing.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

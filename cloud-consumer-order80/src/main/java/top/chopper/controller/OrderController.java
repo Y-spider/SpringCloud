@@ -11,11 +11,12 @@ import top.chopper.entities.Result;
    @DateTime:2025/1/25 17:09
    @Version:1.0.0
    @Description:
-   */
+  */
 @RestController
 @RequestMapping("/consumer")
 public class OrderController {
-    public static final String url = "http://127.0.0.1:8001";
+//    public static final String url = "http://127.0.0.1:8001"; // 这个是硬编码
+    private static final String url = "http://cloud-payment-service"; // 这个是consul服务器中支付模块的名称
     @Resource
     private RestTemplate restTemplate;
 
@@ -42,5 +43,9 @@ public class OrderController {
         @GetMapping("/pay/delete")
     public Result delete(@RequestParam("id") Integer id){
         return restTemplate.getForObject(url + "/pay?id=" + id, Result.class);
+    }
+    @GetMapping("/pay/getInfo")
+    public Result getInfo(){
+        return Result.SUCCESS(restTemplate.getForObject(url+"/pay/getInfo",String.class));
     }
 }
