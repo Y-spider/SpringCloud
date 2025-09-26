@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: cloud-payment-service
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      config:
+        format: yaml
+        profile-separator: "-" # 默认为 ，但是按照习惯修改为 -
+        watch:
+          wait-time: 1 # 默认的consul监控远程配置刷新时间为55s 这里为了学习所以调小，但是在实际开发中就不建议调整了，默认就好
+      discovery:
+        service-name: ${spring.application.name}
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848 #如果用的云上托管版本，输入可访问的Nacos Server地址即可
+#      server-addr: 127.0.0.1:8848 #如果用的云上托管版本，输入可访问的Nacos Server地址即可
+      config:
+        import:
+          - nacos:nacos-config-example.properties?refreshEnabled=true
+# 默认kv键值对规则由于上面配置的分隔符为 - 所以在写配置的时候将,换成 -
+#  config/testApp-dev/
+#  config/testApp/
+#  config/application,dev/
+#  config/application/
+
+custom:
+  name: chopper

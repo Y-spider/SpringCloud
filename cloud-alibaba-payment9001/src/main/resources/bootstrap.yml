@@ -1,0 +1,11 @@
+spring:
+  application:
+    name:  cloud-alibaba-payment
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        server-addr: 127.0.0.1:8848 # 服务配置中心地址
+        file-extension: yml # 指定配置文件的格式为yaml
+        refresh-enabled: true

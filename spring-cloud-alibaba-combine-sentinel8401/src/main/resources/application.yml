@@ -1,0 +1,9 @@
+server:
+  port: 8401
+
+spring:
+  cloud:
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:9999 #面板访问地址
+        port: 8719 # 应用主动注册到控制台 → 用 8719 端口跟控制台通信,如果被占用则会+1

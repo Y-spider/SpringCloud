@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        ip: 127.0.0.1 # 显示的指定本机的ip地址
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yml
+  application:
+    name: cloud-alibaba-sentinel
+  profiles:
+    active: dev
